@@ -394,7 +394,16 @@
       `;
       const img = a.querySelector("img");
       img.addEventListener("load", () => img.classList.add("loaded"));
+      const exts = ["jpg", "jpeg", "png"];
+      img._extIdx = 0;
       img.addEventListener("error", () => {
+        img._extIdx = (img._extIdx || 0) + 1;
+        if (img._extIdx < exts.length) {
+          const newUrl = BASE_URL + code + "/" + pad2(p.index) + "." + exts[img._extIdx];
+          p.url = newUrl;
+          img.src = newUrl;
+          return;
+        }
         a.classList.add("missing");
         img.remove();
         const ph = document.createElement("div");
