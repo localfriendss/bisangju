@@ -394,7 +394,7 @@
       `;
       const img = a.querySelector("img");
       img.addEventListener("load", () => img.classList.add("loaded"));
-      const exts = ["jpg", "jpeg", "png"];
+      const exts = ["jpg", "jpeg", "png", "JPG"];
       img._extIdx = 0;
       img.addEventListener("error", () => {
         img._extIdx = (img._extIdx || 0) + 1;
