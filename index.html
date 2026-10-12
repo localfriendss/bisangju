@@ -274,6 +274,7 @@
 
 <script>
   const BASE_URL = "https://raw.githubusercontent.com/localfriendss/bisangju/main/photos/";
+  // photo-version: v1 (ops-platform 지점 온보딩, 파일명 해시)
 
   const branches = {
     "gw-chuncheon-1": { name: "강원춘천1호점", count: 10 },
@@ -347,7 +348,7 @@
     "seoul-nowon-2": { name: "서울노원구2호점", count: 14 },
     "gj-seo-3": { name: "광주서구3호점", count: 4 },
     "gj-buk-2": { name: "광주북구2호점", count: 12 },
-    "seoul-songpa-3": { name: "서울송파구3호점(가락)", count: 7 },
+    "seoul-songpa-3": { name: "서울송파구3호점(가락)", count: 8, v: "e0894ff" },
     "seoul-seocho-4": { name: "서울서초구4호점(방배)", count: 6 },
     "cheongju-2": { name: "충북청주2호점", count: 11 },
     "seoul-gangseo-4": { name: "서울강서구4호점(가양)", count: 18 },
@@ -384,11 +385,11 @@
     for (let i = 1; i <= branch.count; i++) {
       photos.push({
         index: i,
-        filename: pad2(i) + ".jpg",
-        url: BASE_URL + code + "/" + pad2(i) + ".jpg"
+        filename: pad2(i) + (branch.v ? "-" + branch.v : "") + ".jpg",
+        url: BASE_URL + code + "/" + pad2(i) + (branch.v ? "-" + branch.v : "") + ".jpg"
       });
     }
-    const zipUrl = BASE_URL + code + "/" + code + ".zip";
+    const zipUrl = BASE_URL + code + "/" + code + (branch.v ? "-" + branch.v : "") + ".zip";
 
     app.innerHTML = `
       <div class="container">
@@ -429,7 +430,7 @@
       img.addEventListener("error", () => {
         img._extIdx = (img._extIdx || 0) + 1;
         if (img._extIdx < exts.length) {
-          const newUrl = BASE_URL + code + "/" + pad2(p.index) + "." + exts[img._extIdx];
+          const newUrl = BASE_URL + code + "/" + pad2(p.index) + (branch.v ? "-" + branch.v : "") + "." + exts[img._extIdx];
           p.url = newUrl;
           img.src = newUrl;
           return;
